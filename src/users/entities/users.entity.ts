@@ -1,5 +1,8 @@
+import { BaseEntity } from 'src/config/base.entity';
+import { ROLES } from 'src/constants/roles';
 import { Iuser } from 'src/interfaces/user.interface';
-import { BaseEntity, Column, Entity } from 'typeorm';
+import { Column, Entity } from 'typeorm';
+import { UserProjectEntity } from './usersProjects.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity extends BaseEntity implements Iuser {
@@ -9,12 +12,14 @@ export class UserEntity extends BaseEntity implements Iuser {
   lastName: string;
   @Column()
   age: number;
-  @Column()
+  @Column({ unique: true }) //el unique sirve para que no allan cosas duplicadas como correos etc
   email: string;
-  @Column()
+  @Column({ unique: true })
   password: string;
   @Column()
   usernames: string;
-  @Column()
-  role: string;
+  @Column({ type: 'enum', enum: ROLES })
+  role: ROLES; //[PASRA DEFINIR UN ROL DENTRO DE UNA IDENTIDAD LO TENEMOS QUE TIPAR]
+
+  projectsIncludes: UserProjectEntity[];
 }
