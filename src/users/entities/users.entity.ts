@@ -1,7 +1,7 @@
 import { BaseEntity } from 'src/config/base.entity';
-import { ROLES } from 'src/constants/roles';
-import { Iuser } from 'src/interfaces/user.interface';
-import { Column, Entity } from 'typeorm';
+import { ROLES } from '../../constants/roles';
+import { Iuser } from '../../interfaces/user.interface';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { UserProjectEntity } from './usersProjects.entity';
 
 @Entity({ name: 'users' })
@@ -20,6 +20,6 @@ export class UserEntity extends BaseEntity implements Iuser {
   usernames: string;
   @Column({ type: 'enum', enum: ROLES })
   role: ROLES; //[PASRA DEFINIR UN ROL DENTRO DE UNA IDENTIDAD LO TENEMOS QUE TIPAR]
-
+  @OneToMany(() => UserProjectEntity, (usersProjects) => usersProjects.user)
   projectsIncludes: UserProjectEntity[];
 }

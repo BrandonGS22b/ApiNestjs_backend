@@ -1,7 +1,7 @@
 import { BaseEntity, Column, ManyToOne } from 'typeorm';
 import { UserEntity } from './users.entity';
-import { ACCEDD_LEVEL } from 'src/constants/roles';
-import { ProjectEntity } from 'src/projects/entities/projects.entity';
+import { ACCEDD_LEVEL } from '../../constants/roles';
+import { ProjectEntity } from '../../projects/entities/projects.entity';
 
 export class UserProjectEntity extends BaseEntity {
   @Column({ type: 'enum', enum: ACCEDD_LEVEL })
@@ -10,6 +10,6 @@ export class UserProjectEntity extends BaseEntity {
   @ManyToOne(() => UserEntity, (user) => user.projectsIncludes)
   user: UserEntity;
 
-  @ManyToOne(() => ProjectEntity, (projects) => projects.userIncludes)
+  @ManyToOne(() => ProjectEntity, (projects) => projects.usersIncludes)
   project: ProjectEntity;
 }
