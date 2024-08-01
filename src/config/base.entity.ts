@@ -4,12 +4,16 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-//creamos este archivo para compartir atrubutos con uno y con otro de manera abstract
 export abstract class BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-  @CreateDateColumn('created')
+
+  @CreateDateColumn({
+    type: 'timestamp',
+    name: 'created_at',
+  })
   createdAt: Date;
+
   @UpdateDateColumn({
     type: 'timestamp',
     name: 'updated_at',
