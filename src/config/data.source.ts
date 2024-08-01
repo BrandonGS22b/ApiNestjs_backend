@@ -14,7 +14,7 @@ DB_NAME = codrrdb
 
 ConfigModule.forRoot({
   isGlobal: true,
-  envFilePath: `.develop.env`,
+  envFilePath: `.${process.env.NODE_ENV}.env`,
 });
 const configService = new ConfigService();
 
