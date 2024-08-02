@@ -1,4 +1,4 @@
-import { BaseEntity } from 'src/config/base.entity';
+import { BaseEntity } from '../../config/base.entity';
 import { IProject } from '../../interfaces/project.interface';
 import { UserProjectEntity } from '../../users/entities/usersProjects.entity';
 
