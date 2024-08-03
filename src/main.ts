@@ -1,17 +1,21 @@
 import { ConfigService } from '@nestjs/config';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
-import morgan from 'morgan';
+import * as morgan from 'morgan';
 import { CORS } from './constants';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { AppDS } from './config/data.source'; // Importa el DataSource
 
 async function bootstrap() {
+  // Inicializa el DataSource
+  await AppDS.initialize();
+
   const app = await NestFactory.create(AppModule, {
     snapshot: true,
   });
 
-  app.use(morgan('dev'));
+  app.use(morgan.default('dev'));
 
   app.useGlobalPipes(
     new ValidationPipe({

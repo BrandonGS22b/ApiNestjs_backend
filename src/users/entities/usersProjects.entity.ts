@@ -1,25 +1,17 @@
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { UserEntity } from './users.entity';
-import { ACCEDD_LEVEL } from '../../constants/roles';
-import { ProjectEntity } from '../../projects/entities/projects.entity';
+import { Column, Entity, ManyToOne } from 'typeorm';
+import { BaseEntity } from '../../config/base.entity';
+import { ACCESS_LEVEL } from '../../constants/roles';
+import { UsersEntity } from './users.entity';
+import { ProjectsEntity } from '../../projects/entities/projects.entity';
 
 @Entity({ name: 'users_projects' })
-export class UserProjectEntity extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+export class UsersProjectsEntity extends BaseEntity {
+  @Column({ type: 'enum', enum: ACCESS_LEVEL })
+  accessLevel: ACCESS_LEVEL;
 
-  @Column({ type: 'enum', enum: ACCEDD_LEVEL })
-  accessedLevel: ACCEDD_LEVEL;
+  @ManyToOne(() => UsersEntity, (user) => user.projectsIncludes)
+  user: UsersEntity;
 
-  @ManyToOne(() => UserEntity, (user) => user.projectsIncludes)
-  user: UserEntity;
-
-  @ManyToOne(() => ProjectEntity, (projects) => projects.usersIncludes)
-  project: ProjectEntity;
+  @ManyToOne(() => ProjectsEntity, (project) => project.usersIncludes)
+  project: ProjectsEntity;
 }

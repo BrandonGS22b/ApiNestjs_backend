@@ -1,9 +1,9 @@
-export interface Iuser {
+export interface IUser {
   firstName: string;
   lastName: string;
   age: number;
   email: string;
-  usernames: string;
+  username: string;
   password: string;
   role: string;
 }
